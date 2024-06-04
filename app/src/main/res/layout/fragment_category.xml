@@ -32,7 +32,7 @@
         android:id="@+id/category_btn_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/primary_color"
+        android:background="@drawable/custom_button"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:paddingLeft="8dp"

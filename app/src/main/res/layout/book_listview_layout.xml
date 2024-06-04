@@ -76,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/primary_button"
+            android:background="@drawable/custom_button"
             android:text="Sửa"
             android:textAllCaps="false"
             android:textColor="@color/white"></Button>
@@ -85,7 +85,7 @@
             android:id="@+id/lv_btn_active"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:background="@drawable/red_button"
+            android:background="@drawable/custom_button2"
             android:text="Ẩn/hiện"
             android:textAllCaps="false"
             android:textColor="@color/white"></Button>

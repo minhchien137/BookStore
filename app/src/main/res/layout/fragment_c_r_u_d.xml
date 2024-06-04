@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="30dp"
+        android:paddingTop="20dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin">
 
@@ -155,10 +155,10 @@
         </Switch>
         <Button
             android:id="@+id/crud_btn_add"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/primary_color"
+            android:background="@drawable/custom_button"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:enabled="true"
