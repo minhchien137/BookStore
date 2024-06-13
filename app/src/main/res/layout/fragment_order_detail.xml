@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".OrderDetailFragment"
     android:gravity="center"
-    android:background="@color/primary_color"
+    android:background="@color/purple"
     android:orientation="vertical"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:text="ĐƠN HÀNG"
                 android:textAlignment="center"
-                android:textColor="@color/primary_color"
+                android:textColor="@color/purple"
                 android:textSize="27sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -51,7 +51,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
                         android:text="Mã đơn hàng"
-                        android:textColor="@color/primary_color"
+                        android:textColor="@color/purple"
                         android:textStyle="bold"
                         android:textSize="16sp"/>
                     <TextView
@@ -71,7 +71,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
                         android:text="Ngày đặt"
-                        android:textColor="@color/primary_color"
+                        android:textColor="@color/purple"
                         android:textStyle="bold"
                         android:textSize="16sp"/>
                     <TextView
@@ -91,7 +91,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
                         android:text="Trạng thái"
-                        android:textColor="@color/primary_color"
+                        android:textColor="@color/purple"
                         android:textStyle="bold"
                         android:textSize="16sp"/>
                     <TextView
@@ -111,7 +111,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
                         android:text="Số lượng"
-                        android:textColor="@color/primary_color"
+                        android:textColor="@color/purple"
                         android:textStyle="bold"
                         android:textSize="16sp"/>
                     <TextView
@@ -131,7 +131,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
                         android:text="Giá trị"
-                        android:textColor="@color/primary_color"
+                        android:textColor="@color/purple"
                         android:textStyle="bold"
                         android:textSize="16sp"/>
                     <TextView
@@ -150,7 +150,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:textColor="@color/primary_color"
+            android:textColor="@color/purple"
             android:text="Chi tiết hóa đơn"
             android:textAlignment="center"
             android:textStyle="bold"

@@ -150,7 +150,7 @@
             android:fontFamily="@font/roboto_regular"
             android:textColor="@color/text_second"
             android:textSize="18sp"
-            android:thumbTint="@color/primary_color"
+            android:thumbTint="@color/purple"
             android:layout_height="wrap_content">
         </Switch>
         <Button

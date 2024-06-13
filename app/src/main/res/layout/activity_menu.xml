@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:background="@color/primary_color"
+        android:background="@color/purple"
         android:orientation="horizontal"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"

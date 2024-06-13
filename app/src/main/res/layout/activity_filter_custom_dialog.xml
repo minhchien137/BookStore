@@ -11,7 +11,7 @@
         android:gravity="center"
         android:textSize="20sp"
         android:textColor="@color/white"
-        android:background="@color/primary_color"
+        android:background="@color/purple"
         android:text="Tìm kiếm chi tiết"
         android:layout_marginBottom="@dimen/activity_horizontal_margin"></TextView>
     <LinearLayout

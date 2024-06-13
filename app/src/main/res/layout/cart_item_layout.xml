@@ -69,11 +69,11 @@
                         android:id="@+id/btngiamsoluong"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:background="@color/primary_color"
+                        android:background="@color/purple"
                         android:gravity="center"
                         android:text="-"
                         android:textColor="@color/white"
-                        android:textSize="25sp"></Button>
+                        android:textSize="25sp"/>
 
                     <TextView
                         android:id="@+id/txtsoluong"
@@ -83,18 +83,18 @@
                         android:text="1"
                         android:textColor="@color/text_second"
                         android:textSize="18sp"
-                        android:textStyle="bold"></TextView>
+                        android:textStyle="bold"/>
 
                     <Button
                         android:id="@+id/btntangsoloung"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="9dp"
-                        android:background="@color/primary_color"
+                        android:background="@color/purple"
                         android:gravity="center"
                         android:text="+"
                         android:textColor="@color/white"
-                        android:textSize="25sp"></Button>
+                        android:textSize="25sp"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -108,7 +108,6 @@
                     android:layout_marginRight="6dp"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/red_button"
-
                     android:src="@drawable/ic_outline_close_24"
                     android:textAllCaps="false"
                     android:textColor="@color/white"></ImageButton>

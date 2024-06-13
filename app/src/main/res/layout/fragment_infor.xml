@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:text="THÔNG TIN TÀI KHOẢN"
                     android:textAlignment="center"
-                    android:textColor="@color/primary_color"
+                    android:textColor="@color/purple"
                     android:textSize="27sp"
                     android:textStyle="bold" />
                 <LinearLayout
