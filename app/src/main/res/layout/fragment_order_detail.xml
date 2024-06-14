@@ -62,6 +62,7 @@
                         android:layout_weight="1"
                         android:text="121212121"
                         android:textColor="@color/black"
+                        android:layout_marginStart="40dp"
                         android:textSize="15sp"/>
                 </TableRow>
                 <TableRow>
@@ -81,9 +82,33 @@
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
                         android:text="01/06/2022"
+                        android:layout_marginStart="40dp"
                         android:textColor="@color/black"
                         android:textSize="15sp"/>
                 </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:text="Địa chỉ giao hàng"
+                        android:textColor="@color/purple"
+                        android:textStyle="bold"
+                        android:textSize="16sp"/>
+                    <TextView
+                        android:id="@+id/txtAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:text="Hà Nội"
+                        android:layout_marginStart="40dp"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"/>
+                </TableRow>
+
                 <TableRow>
                     <TextView
                         android:layout_width="wrap_content"
@@ -101,6 +126,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
                         android:text="In Progress"
+                        android:layout_marginStart="40dp"
                         android:textColor="@color/black"
                         android:textSize="15sp"/>
                 </TableRow>
@@ -121,6 +147,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
                         android:text="8"
+                        android:layout_marginStart="40dp"
                         android:textColor="@color/black"
                         android:textSize="15sp"/>
                 </TableRow>
@@ -130,7 +157,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
-                        android:text="Giá trị"
+                        android:text="Tổng tiền"
                         android:textColor="@color/purple"
                         android:textStyle="bold"
                         android:textSize="16sp"/>
@@ -141,6 +168,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
                         android:text="#100"
+                        android:layout_marginStart="40dp"
                         android:textColor="@color/black"
                         android:textSize="15sp"/>
                 </TableRow>
@@ -151,16 +179,17 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:textColor="@color/purple"
-            android:text="Chi tiết hóa đơn"
+            android:text="Chi tiết đơn hàng"
             android:textAlignment="center"
             android:textStyle="bold"
             android:textSize="20sp"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemsRv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:minHeight="500dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/row_ordereditem"/>
+            tools:listitem="@layout/row_ordereditem" />
     </LinearLayout>
 </FrameLayout>

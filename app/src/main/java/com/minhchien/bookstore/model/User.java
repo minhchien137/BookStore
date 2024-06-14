@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class User implements Parcelable {
     private String fullName;
-    private String phone;
+    private String phoneNumber;
     private String password;
     private String address;
     private int isAdmin;
@@ -15,7 +15,7 @@ public class User implements Parcelable {
 
     public User(String fullName, String phone, String password, String address) {
         this.fullName = fullName;
-        this.phone = phone;
+        this.phoneNumber = phone;
         this.password = password;
         this.address = address;
         this.isAdmin = 0;
@@ -23,7 +23,7 @@ public class User implements Parcelable {
 
     protected User(Parcel in) {
         fullName = in.readString();
-        phone = in.readString();
+        phoneNumber = in.readString();
         password = in.readString();
         address = in.readString();
         isAdmin = in.readInt();
@@ -57,12 +57,12 @@ public class User implements Parcelable {
         this.fullName = fullName;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getPassword() {
@@ -89,7 +89,7 @@ public class User implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(fullName);
-        parcel.writeString(phone);
+        parcel.writeString(phoneNumber);
         parcel.writeString(password);
         parcel.writeString(address);
         parcel.writeInt(isAdmin);

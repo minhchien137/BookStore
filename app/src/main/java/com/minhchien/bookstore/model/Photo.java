@@ -1,17 +1,18 @@
 package com.minhchien.bookstore.model;
 
 public class Photo {
-    private int resourceID;
+    private int resourceId;
 
-    public Photo(int resourceID) {
-        this.resourceID = resourceID;
+    public Photo(int resourceId) {
+        this.resourceId = resourceId;
     }
 
-    public int getResourceID() {
-        return resourceID;
+    public int getResourceId() {
+        return resourceId;
     }
 
-    public void setResourceID(int resourceID) {
-        this.resourceID = resourceID;
+    public void setResourceId(int resourceId) {
+        this.resourceId = resourceId;
     }
 }
+

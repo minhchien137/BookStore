@@ -57,7 +57,7 @@
                     android:id="@+id/account_txtUserName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="Họ và tên"
                     android:textColor="@color/text_second"
                     android:textSize="20sp"
                     android:textStyle="bold"

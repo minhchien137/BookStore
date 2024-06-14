@@ -1,27 +1,27 @@
 package com.minhchien.bookstore.model;
 
 public class Author {
-    private String id;
-    private String name;
+    private String idAuthor;
+    private String nameAuthor;
 
-    public Author(String id, String name) {
-        this.id = id;
-        this.name = name;
+    public Author(String idAuthor, String nameAuthor) {
+        this.idAuthor = idAuthor;
+        this.nameAuthor = nameAuthor;
     }
 
-    public String getId() {
-        return id;
+    public String getIdAuthor() {
+        return idAuthor;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdAuthor(String idAuthor) {
+        this.idAuthor = idAuthor;
     }
 
-    public String getName() {
-        return name;
+    public String getNameAuthor() {
+        return nameAuthor;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNameAuthor(String nameAuthor) {
+        this.nameAuthor = nameAuthor;
     }
 }

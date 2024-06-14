@@ -1,25 +1,22 @@
 package com.minhchien.bookstore.model;
 
 public class CartItem {
-    private int id;
+    private int idCart;
     private String bookId;
-    private int num;
+    private int numCart;
 
-    public CartItem(int id, String bookId, int num) {
-        this.id = id;
+    public CartItem(int idCart, String bookId, int numCart) {
+        this.idCart = idCart;
         this.bookId = bookId;
-        this.num = num;
+        this.numCart = numCart;
     }
 
-    public CartItem() {
+    public int getIdCart() {
+        return idCart;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setIdCart(int idCart) {
+        this.idCart = idCart;
     }
 
     public String getBookId() {
@@ -30,11 +27,11 @@ public class CartItem {
         this.bookId = bookId;
     }
 
-    public int getNum() {
-        return num;
+    public int getNumCart() {
+        return numCart;
     }
 
-    public void setNum(int num) {
-        this.num = num;
+    public void setNumCart(int numCart) {
+        this.numCart = numCart;
     }
 }

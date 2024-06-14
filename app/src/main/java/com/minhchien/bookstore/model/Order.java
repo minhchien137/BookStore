@@ -1,15 +1,15 @@
 package com.minhchien.bookstore.model;
 
 public class Order {
-    String orderId, orderTime, orderCost, orderBy, orderStatus;
+    String orderId, orderTime, orderTotalCost, orderBy, orderStatus;
 
     public Order() {
     }
 
-    public Order(String orderId, String orderTime, String orderCost, String orderBy, String orderStatus) {
+    public Order(String orderId, String orderTime, String orderTotalCost, String orderBy, String orderStatus) {
         this.orderId = orderId;
         this.orderTime = orderTime;
-        this.orderCost = orderCost;
+        this.orderTotalCost = orderTotalCost;
         this.orderBy = orderBy;
         this.orderStatus = orderStatus;
     }
@@ -30,12 +30,12 @@ public class Order {
         this.orderTime = orderTime;
     }
 
-    public String getOrderCost() {
-        return orderCost;
+    public String getOrderTotalCost() {
+        return orderTotalCost;
     }
 
-    public void setOrderCost(String orderCost) {
-        this.orderCost = orderCost;
+    public void setOrderTotalCost(String orderTotalCost) {
+        this.orderTotalCost = orderTotalCost;
     }
 
     public String getOrderBy() {

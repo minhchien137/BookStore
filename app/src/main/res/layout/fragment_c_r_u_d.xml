@@ -72,6 +72,32 @@
             android:layout_marginBottom="15dp">
         </EditText>
         <EditText
+            android:id="@+id/crud_version"
+            android:hint="Phiên bản sách"
+            android:paddingTop="5sp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_shape"
+            android:layout_marginBottom="15dp">
+        </EditText>
+        <EditText
+            android:id="@+id/crud_congtyphathanh"
+            android:hint="Công ty phát hành"
+            android:paddingTop="5sp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_shape"
+            android:layout_marginBottom="15dp">
+        </EditText>
+        <EditText
             android:id="@+id/crud_in_stock"
             android:hint="Số lượng"
             android:inputType="numberDecimal"
@@ -94,7 +120,7 @@
             android:height="100sp"
             android:background="@drawable/round_shape"
             android:gravity="top"
-            android:hint="Mô tả"
+            android:hint="Mô tả sách"
             android:capitalize="sentences"
             android:paddingLeft="10dp"
             android:paddingTop="5sp"
