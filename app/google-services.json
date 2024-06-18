@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "996013196926",
-    "project_id": "bookstore-6096e",
-    "storage_bucket": "bookstore-6096e.appspot.com"
+    "project_number": "970859707927",
+    "project_id": "bookstoree-5617f",
+    "storage_bucket": "bookstoree-5617f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:996013196926:android:8278a1786d46475c3ffa2f",
+        "mobilesdk_app_id": "1:970859707927:android:465604ea2dfdf61edaa652",
         "android_client_info": {
           "package_name": "com.minhchien.bookstore"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCdq_1WMCkVhd0IO78K41CcNJ5G8vyFulw"
+          "current_key": "AIzaSyAF30jzxRu85tec1jQ45n6TdQZS4-KmpZc"
         }
       ],
       "services": {
