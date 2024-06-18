@@ -1,66 +1,153 @@
 package com.minhchien.bookstore.admin;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.minhchien.bookstore.R;
+import com.minhchien.bookstore.SignupActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CategoryFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+
 public class CategoryFragment extends Fragment {
+    private FirebaseDatabase database;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private DatabaseReference myRef;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    EditText txtCategory;
 
-    public CategoryFragment() {
-        // Required empty public constructor
+    Button btnAdd;
+
+    ListView cateListview;
+
+    ArrayList<String> listCate;
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View view;
+        view = inflater.inflate(R.layout.fragment_category, container, false);
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Categorys");
+        txtCategory = (EditText) view.findViewById(R.id.category_txt);
+        btnAdd = (Button) view.findViewById(R.id.category_btn_add);
+        String cateName = txtCategory.getText().toString();
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String cateName = txtCategory.getText().toString();
+
+                if (cateName.trim().isEmpty()) {
+                    Toast.makeText(getContext(), "Không được để trống tên thể lọai!", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Kiểm tra xem thể loại đã tồn tại chưa
+                    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.hasChild(cateName)) {
+                                Toast.makeText(getContext(), "Đã tồn tại thể loại này", Toast.LENGTH_SHORT).show();
+                            } else {
+                                // Thêm thể loại vào database
+                                myRef.push().setValue(cateName).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(getContext(), "Thêm thể loại thành công", Toast.LENGTH_SHORT).show();
+                                            txtCategory.setText("");
+                                        } else {
+                                            Toast.makeText(getContext(), "Thêm thể loại thất bại\nVui lòng thử lại!", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+        });
+
+
+        listCate = new ArrayList<>();
+        cateListview = (ListView) view.findViewById(R.id.category_lv);
+        ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, listCate);
+        cateListview.setAdapter(adapter);
+
+
+        cateListview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                String cateName = listCate.get(position);
+
+                // Hiển thị hộp thoại xác nhận xóa
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Xác nhận xóa")
+                        .setMessage("Bạn có chắc chắn muốn xóa " + cateName + "?")
+                        .setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Xóa thể loại khỏi database
+                                deleteCategory(cateName);
+                            }
+                        })
+                        .setNegativeButton("Hủy", null)
+                        .show();
+
+                return true; // Trả về true để ngăn chặn sự kiện click bình thường
+            }
+        });
+
+
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (listCate != null) {
+                    listCate.clear();
+                }
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    String category = data.getValue(String.class);
+                    listCate.add(category);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return view;
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CategoryFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CategoryFragment newInstance(String param1, String param2) {
-        CategoryFragment fragment = new CategoryFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    private void deleteCategory(String cateName) {
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_category, container, false);
-    }
-}

@@ -17,6 +17,10 @@ public class Book implements Parcelable {
     private String descriptionBook;
     private int isActive;
 
+    public  Book(){
+
+    }
+
     public Book(String idBook, String titleBook, String author, String categoryBook, String imgURLBook, String companyBook, String versionBook, int yearBook, int priceBook, int inStockBook, String descriptionBook, int isActive) {
         this.idBook = idBook;
         this.titleBook = titleBook;
