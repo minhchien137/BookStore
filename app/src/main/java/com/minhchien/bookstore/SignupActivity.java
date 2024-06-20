@@ -2,9 +2,11 @@ package com.minhchien.bookstore;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,8 @@ public class SignupActivity extends AppCompatActivity {
 
     TextView tvSignupLogin;
 
+    ImageView togglePWSignUp;
+
     private FirebaseDatabase database;
     private DatabaseReference myRef;
 
@@ -48,6 +52,22 @@ public class SignupActivity extends AppCompatActivity {
         txtPass = (EditText) findViewById(R.id.matkhauSignup);
         btnRegister = (Button)findViewById(R.id.signupButton);
         tvSignupLogin = (TextView) findViewById(R.id.signupText);
+        togglePWSignUp = (ImageView) findViewById(R.id.togglePasswordVisibilitySU);
+
+
+        togglePWSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (txtPass.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                    txtPass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    togglePWSignUp.setImageResource(R.drawable.ic_visibility_off);
+                } else {
+                    txtPass.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    togglePWSignUp.setImageResource(R.drawable.ic_visibility);
+                }
+                txtPass.setSelection(txtPass.getText().length());
+            }
+        });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override

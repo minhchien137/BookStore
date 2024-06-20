@@ -66,6 +66,10 @@
                 android:textColorHighlight="@color/cardview_dark_background"
                 android:layout_marginTop="20dp"/>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp">
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -78,6 +82,17 @@
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/cardview_dark_background"
                 android:layout_marginTop="20dp"/>
+
+                <ImageView
+                    android:id="@+id/togglePasswordVisibilitySU"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_visibility_off" />
+
+            </RelativeLayout>
 
             <Button
                 android:layout_width="match_parent"
