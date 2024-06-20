@@ -173,7 +173,7 @@ public class MenuActivity extends AppCompatActivity {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),Constants.CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_book_foreground)
                     .setContentTitle(Constants.TITLE)
-                    .setContentText(newBook.getTitleBook().toUpperCase(Locale.ROOT)+" đã có mặt trên BookStore, MUA NGAY!!")
+                    .setContentText(newBook.getTitleBook().toUpperCase(Locale.ROOT)+" đã có mặt trên BookStore, XEM NGAY!!!!")
                     .setPriority(NotificationCompat.PRIORITY_HIGH) // dat muc do uu tien cho thong bao
                     .setAutoCancel(true);
             // Tao intent
