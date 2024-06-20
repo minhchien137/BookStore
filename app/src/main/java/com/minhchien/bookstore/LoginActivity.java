@@ -7,9 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,8 @@ public class LoginActivity extends AppCompatActivity {
     private DatabaseReference myRef;
     EditText txtPhone,txtPass;
     TextView tvSignupLogin;
+
+    ImageView togglePWinvibility;
     Button btnLogin;
     private User user;
     private SharedPreferences sharedPreferences;
@@ -44,6 +48,22 @@ public class LoginActivity extends AppCompatActivity {
         txtPass = (EditText) findViewById(R.id.matkhauLogin);
         btnLogin = (Button) findViewById(R.id.loginButton);
         tvSignupLogin = (TextView) findViewById(R.id.signupText);
+        togglePWinvibility = (ImageView) findViewById(R.id.togglePasswordVisibility);
+
+
+        togglePWinvibility.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (txtPass.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                    txtPass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    togglePWinvibility.setImageResource(R.drawable.ic_visibility_off);
+                } else {
+                    txtPass.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    togglePWinvibility.setImageResource(R.drawable.ic_visibility);
+                }
+                txtPass.setSelection(txtPass.getText().length());
+            }
+        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
