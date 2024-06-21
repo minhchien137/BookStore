@@ -2,63 +2,180 @@ package com.minhchien.bookstore;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.minhchien.bookstore.customadapter.CategoryAdapter;
+import com.minhchien.bookstore.customadapter.PhotoAdapter;
+import com.minhchien.bookstore.model.Book;
+import com.minhchien.bookstore.model.Category;
+import com.minhchien.bookstore.model.Photo;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+
+import me.relex.circleindicator.CircleIndicator;
+
 public class HomeFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public HomeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
+    //list books by categiry
+    List<Category> mListCategorys;
+    List<String> listCates;
+    //List<Book> bookList;
+    String currentCate;
+    ViewPager viewPager;
+    CircleIndicator circleIndicator;
+    RecyclerView mainRecyclerView;
+    CategoryAdapter categoryAdapter;
+    private List<Photo> mListPhoto;
+    private final static int timeDelay = 4000;
+    private Handler mHandler = new Handler();
+    private Runnable mRunable = new Runnable() {
+        @Override
+        public void run() {
+            if(viewPager.getCurrentItem() == mListPhoto.size() - 1){
+                viewPager.setCurrentItem(0);
+            }else{
+                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+            }
         }
-    }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        viewPager = (ViewPager) view.findViewById(R.id.view_pager);
+        circleIndicator = view.findViewById(R.id.circle_indicator);
+        mListPhoto = getListPhotos();
+        PhotoAdapter photoAdapter = new PhotoAdapter(mListPhoto);
+        viewPager.setAdapter(photoAdapter);
+        circleIndicator.setViewPager(viewPager);
+        mHandler.postDelayed(mRunable,timeDelay);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mHandler.removeCallbacks(mRunable);
+                mHandler.postDelayed(mRunable,timeDelay);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        //Firebase
+        database = FirebaseDatabase.getInstance();
+        mListCategorys = new ArrayList<Category>();
+        //recycler view
+        mainRecyclerView = view.findViewById(R.id.main_recycleView);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
+        mainRecyclerView.setLayoutManager(linearLayoutManager);
+        FragmentManager fragmentManager = getParentFragmentManager();
+        categoryAdapter = new CategoryAdapter(getContext(),fragmentManager,true);
+        mainRecyclerView.setAdapter(categoryAdapter);
+        listCates = new ArrayList<>();
+        getListCategorys();
+        return view;
+    }
+    private List<Photo> getListPhotos(){
+        List<Photo> list = new ArrayList<>();
+        list.add(new Photo(R.drawable.img1));
+        list.add(new Photo(R.drawable.img2));
+        list.add(new Photo(R.drawable.img3));
+        list.add(new Photo(R.drawable.img4));
+        return list;
+    }
+    //get list books by category
+    private void getListCategorys(){
+        CountDownLatch done = new CountDownLatch(1);
+        myRef = database.getReference("Categorys").orderByValue().getRef();
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot:snapshot.getChildren()){
+                    String cate = dataSnapshot.getValue(String.class);
+                    listCates.add(cate);
+                }
+                done.countDown();
+                try {
+                    done.await(); //it will wait till the response is received from firebase.
+                    getListBooks();
+                } catch(InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("Get Categorys errors",error.getMessage());
+            }
+        });
+    }
+    private void getListBooks(){
+        for (String category:listCates){
+            Query query = database.getReference("Books")
+                    .orderByChild("category").equalTo(category)
+                    .limitToFirst(4);
+            query.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    List bookList = new ArrayList<>();
+                    if(snapshot.exists()) {
+                        CountDownLatch done = new CountDownLatch(2);
+                        for (DataSnapshot data : snapshot.getChildren()) {
+                          Book book = data.getValue(Book.class);
+                            //Kiem tra dieu kien
+                            if(book.getIsActive() == 1 && book.getInStockBook() > 0){
+                                bookList.add(book);
+                            }
+                        }
+                        done.countDown();
+                        if(bookList.size() > 0){
+                            Category cate = new Category(category,bookList);
+                            mListCategorys.add(cate);
+                            categoryAdapter.setData(mListCategorys);
+                        }
+                        done.countDown();
+                        try {
+                            done.await(); //it will wait till the response is received from firebase.
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("Get boooks errors",error.getMessage());
+                }
+            });
+
+        }
     }
 }

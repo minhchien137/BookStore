@@ -30,7 +30,9 @@ public class AdminMenuActivity extends AppCompatActivity {
     CategoryFragment categoryFragment = new CategoryFragment();
     OrderListFragment orderListFragment = new OrderListFragment();
     AdminListbook adminListbook = new AdminListbook();
-    TextView btnAcc;
+
+    AccountFragment accountFragment = new AccountFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,35 +56,16 @@ public class AdminMenuActivity extends AppCompatActivity {
                 else if (item.getItemId() == R.id.list_book){
                     getSupportFragmentManager().beginTransaction().replace(R.id.admin_menu_container,adminListbook).commit();
                     return true;
-                }
-                else {
+                } else if (item.getItemId() == R.id.account) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.admin_menu_container,accountFragment).commit();
                     return true;
+                } else {
+                    return false;
                 }
-//                switch (item.getItemId()){
-//                    case R.id.crud:
-//                        getSupportFragmentManager().beginTransaction().replace(R.id.admin_menu_container,crudFragment).commit();
-//                        return true;
-//                    case R.id.category:
-//                        getSupportFragmentManager().beginTransaction().replace(R.id.admin_menu_container,categoryFragment).commit();
-//                        return true;
-//                    case R.id.order:
-//                        getSupportFragmentManager().beginTransaction().replace(R.id.admin_menu_container,orderListFragment).commit();
-//                        return true;
-//                    case R.id.list_book:
-//                        getSupportFragmentManager().beginTransaction().replace(R.id.admin_menu_container,adminListbook).commit();
-//                        return true;
-//                }
-//                return false;
+//
             }
         });
-        btnAcc = (TextView) findViewById(R.id.admin_menu_btnAccount);
-        btnAcc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AccountFragment accountFragment = new AccountFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.admin_menu_container,accountFragment).commit();
-            }
-        });
+
 
     }
 

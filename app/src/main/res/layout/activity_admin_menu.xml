@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/admin_menu_header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:background="@color/purple"
@@ -21,20 +21,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:textSize="17sp"
+            android:textSize="24sp"
             android:fontFamily="@font/roboto_bold"
-            android:text="@string/admin_menu_header"
+            android:textStyle="bold"
+            android:text="@string/app_name"
             android:layout_alignParentLeft="true"></TextView>
 
-        <TextView
-            android:id="@+id/admin_menu_btnAccount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="Tài khoản"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:layout_alignParentRight="true"></TextView>
     </RelativeLayout>
     <FrameLayout
         android:layout_width="match_parent"

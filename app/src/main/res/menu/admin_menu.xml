@@ -15,5 +15,8 @@
     <item android:id="@+id/order"
         android:title="@string/title_order"
         android:icon="@drawable/ic_baseline_timeline_24"></item>
+    <item android:id="@+id/account"
+          android:title="Tài khoản"
+          android:icon="@drawable/ic_user"></item>
 
 </menu>

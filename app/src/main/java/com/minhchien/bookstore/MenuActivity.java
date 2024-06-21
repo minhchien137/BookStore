@@ -52,7 +52,7 @@ public class MenuActivity extends AppCompatActivity {
 
     AccountFragment accountFragment = new AccountFragment();
 
-    TextView btnAcc;
+
 
     FirebaseDatabase firebaseDatabase;
 
@@ -102,19 +102,15 @@ public class MenuActivity extends AppCompatActivity {
                    } else if (item.getItemId() == R.id.cart) {
                        getSupportFragmentManager().beginTransaction().replace(R.id.container,cartFragment).commit();
                        return true;
-                   }else {
+                   } else if (item.getItemId() == R.id.account) {
+                       getSupportFragmentManager().beginTransaction().replace(R.id.container, accountFragment).commit();
+                       return true;
+                   } else {
                        return false;
                    }
             }
         });
 
-        btnAcc = (TextView) findViewById(R.id.menu_btnAccount);
-        btnAcc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, accountFragment).commit();
-            }
-        });
     }
         private void handleEvenBookAdded(){
             myRef.limitToLast(1).addChildEventListener(new ChildEventListener() {

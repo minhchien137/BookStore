@@ -3,35 +3,25 @@ package com.minhchien.bookstore.model;
 import java.util.List;
 
 public class Category {
-    private String idCategory;
-    private String Namecategory;
+
+    private String category;
     private List<Book> list;
 
-    public Category(String idCategory, String namecategory) {
-        this.idCategory = idCategory;
-        Namecategory = namecategory;
+    public Category(String category) {
+        this.category = category;
     }
 
-    public Category(String idCategory, String namecategory, List<Book> list) {
-        this.idCategory = idCategory;
-        Namecategory = namecategory;
+    public Category(String category, List<Book> list) {
+        this.category = category;
         this.list = list;
     }
 
-    public String getIdCategory() {
-        return idCategory;
+    public String getCategory() {
+        return category;
     }
 
-    public void setIdCategory(String idCategory) {
-        this.idCategory = idCategory;
-    }
-
-    public String getNamecategory() {
-        return Namecategory;
-    }
-
-    public void setNamecategory(String namecategory) {
-        Namecategory = namecategory;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public List<Book> getList() {
@@ -41,5 +31,4 @@ public class Category {
     public void setList(List<Book> list) {
         this.list = list;
     }
-
 }

@@ -12,12 +12,14 @@ public class PreferenceManager {
         sharedPreferences = context.getSharedPreferences(sharePreferencesName, Context.MODE_PRIVATE);
     }
 
+
+    // Luu tru cac gia tri vao SharePreferences
     public void putBoolean(String key, Boolean value) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(key, value);
         editor.apply();
     }
-
+    // Doc gia tri tu SharePreferences
     public Boolean getBoolean(String key) {
         return sharedPreferences.getBoolean(key, false);
     }
@@ -49,6 +51,8 @@ public class PreferenceManager {
         return sharedPreferences.getStringSet(key, null);
     }
 
+
+    // Xoa tat ca du lieu trong Shareferences
     public void clear() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
