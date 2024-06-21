@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment {
     RecyclerView mainRecyclerView;
     CategoryAdapter categoryAdapter;
     private List<Photo> mListPhoto;
-    private final static int timeDelay = 4000;
+    private final static int timeDelay = 2000;
     private Handler mHandler = new Handler();
     private Runnable mRunable = new Runnable() {
         @Override

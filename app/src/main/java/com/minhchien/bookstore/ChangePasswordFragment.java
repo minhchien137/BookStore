@@ -112,21 +112,24 @@ public class ChangePasswordFragment extends Fragment {
                 phone = preferenceManager.getString(Constants.LOGIN_PHONE);
                 referencer = FirebaseDatabase.getInstance().getReference("Users");
                 pass = value;
+
                 // So sanh mat khau hien tai voi mat khau User nhap
                 if (pass.equals(txtMKrecent.getText().toString())) {
                     String newPass = txtNewMK.getText().toString();
-                    String confirmNewPass = txtNewMKXacNhan.getText().toString(); // Lấy mật khẩu xác nhận
+                    String confirmNewPass = txtNewMKXacNhan.getText().toString();
 
-                    if (newPass.length() >= 6 && newPass.equals(confirmNewPass)) { // Kiểm tra độ dài và sự khớp nhau
+                    // Kiểm tra mật khẩu mới không được trùng với mật khẩu hiện tại
+                    if (!newPass.equals(pass) && newPass.length() >= 6 && newPass.equals(confirmNewPass)) {
                         referencer.child(phone).child("password").setValue(newPass);
                         Toast.makeText(getActivity(), "Thay đổi mật khẩu thành công!", Toast.LENGTH_SHORT).show();
+                    } else if (newPass.equals(pass)) {
+                        Toast.makeText(getActivity(), "Mật khẩu mới không được trùng với mật khẩu hiện tại!", Toast.LENGTH_SHORT).show();
                     } else if (newPass.length() < 6) {
                         Toast.makeText(getActivity(), "Vui lòng nhập mật khẩu dài hơn 6 ký tự!", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(getActivity(), "Mật khẩu mới và mật khẩu xác nhận không khớp!", Toast.LENGTH_SHORT).show(); // Thông báo lỗi
+                        Toast.makeText(getActivity(), "Mật khẩu mới và mật khẩu xác nhận không khớp!", Toast.LENGTH_SHORT).show();
                     }
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Thay đổi mật khẩu thất bại!", Toast.LENGTH_SHORT).show();
                 }
 
