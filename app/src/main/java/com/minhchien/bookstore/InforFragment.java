@@ -76,6 +76,7 @@ public class InforFragment extends Fragment {
 
             }
         });
+
         return view;
 
 

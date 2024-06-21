@@ -4,11 +4,13 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +27,8 @@ public class ChangePasswordFragment extends Fragment {
     EditText txtMKrecent, txtNewMK, txtNewMKXacNhan;
 
     Button btnSave, btnBack;
+
+    ImageView tgPW, tgNew , tgNewRQ;
 
     private String phone, pass;
 
@@ -44,6 +48,51 @@ public class ChangePasswordFragment extends Fragment {
         txtNewMKXacNhan = view.findViewById(R.id.changePass_newPassXacNhan);
         btnSave = view.findViewById(R.id.changePass_btnSave);
         btnBack = view.findViewById(R.id.changePass_btnBack);
+        tgPW = view.findViewById(R.id.tgPW);
+        tgNew = view.findViewById(R.id.tgNew);
+        tgNewRQ = view.findViewById(R.id.tgNewRQ);
+
+        tgPW.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (txtMKrecent.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                    txtMKrecent.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    tgPW.setImageResource(R.drawable.ic_visibility_off);
+                } else {
+                    txtMKrecent.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    tgPW.setImageResource(R.drawable.ic_visibility);
+                }
+                txtMKrecent.setSelection(txtMKrecent.getText().length());
+            }
+        });
+
+        tgNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (txtNewMK.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                    txtNewMK.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    tgNew.setImageResource(R.drawable.ic_visibility_off);
+                } else {
+                    txtNewMK.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    tgNew.setImageResource(R.drawable.ic_visibility);
+                }
+                txtNewMK.setSelection(txtNewMK.getText().length());
+            }
+        });
+
+        tgNewRQ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (txtNewMKXacNhan.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                    txtNewMKXacNhan.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    tgNewRQ.setImageResource(R.drawable.ic_visibility_off);
+                } else {
+                    txtNewMKXacNhan.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    tgNewRQ.setImageResource(R.drawable.ic_visibility);
+                }
+                txtNewMKXacNhan.setSelection(txtNewMKXacNhan.getText().length());
+            }
+        });
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
