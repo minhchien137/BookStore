@@ -2,63 +2,140 @@ package com.minhchien.bookstore;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link UpdateInforFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.minhchien.bookstore.model.User;
+import com.minhchien.bookstore.sharepreference.Constants;
+import com.minhchien.bookstore.sharepreference.PreferenceManager;
+
+
 public class UpdateInforFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    EditText txtName, txtDiachi;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    Button btnSave, btnBack;
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+    DatabaseReference reference;
+
+    private String phone,name, address;
 
     public UpdateInforFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment UpdateInforFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static UpdateInforFragment newInstance(String param1, String param2) {
-        UpdateInforFragment fragment = new UpdateInforFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_update_infor, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_update_infor, container, false);
+        txtName = view.findViewById(R.id.updateinfor_txtname);
+        txtDiachi = view.findViewById(R.id.updateinfor_txtaddress);
+        btnSave = view.findViewById(R.id.updateinfor_btnUpdate);
+        btnBack = view.findViewById(R.id.updateinfor_btnBack);
+
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        showProfile();
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateInfor();
+            }
+        });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BackInfor();
+            }
+        });
+
+        return view;
+
+    }
+
+    private void showProfile() {
+        PreferenceManager preferenceManager = new PreferenceManager(getContext(), Constants.LOGIN_KEY_PREFERENCE_NAME);
+        phone = preferenceManager.getString(Constants.LOGIN_PHONE);
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+
+        reference.child(phone).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User profile = snapshot.getValue(User.class);
+
+                if (profile != null){
+                    name = profile.getFullName();
+                    address = profile.getAddress();
+
+                    txtName.setText(name);
+                    txtDiachi.setText(address);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void UpdateInfor(){
+        if (isNameChanged() || isAddressChanged()){
+            Toast.makeText(getActivity(), "Cập nhật thông tin thành công!", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(getActivity(), "Cập nhật thông tin thất bại!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void BackInfor(){
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, new InforFragment());
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    private boolean isNameChanged(){
+        PreferenceManager preferenceManager = new PreferenceManager(getContext(), Constants.LOGIN_KEY_PREFERENCE_NAME);
+        phone = preferenceManager.getString(Constants.LOGIN_PHONE);
+        if (!name.equals(txtName.getText().toString())){
+            reference.child(phone).child("fullName").setValue(txtName.getText().toString());
+            name = txtName.getText().toString();
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    private boolean isAddressChanged(){
+        PreferenceManager preferenceManager = new PreferenceManager(getContext(), Constants.LOGIN_KEY_PREFERENCE_NAME);
+        address = preferenceManager.getString(Constants.LOGIN_PHONE);
+        if (!address.equals(txtDiachi.getText().toString())){
+            reference.child(address).child("address").setValue(txtDiachi.getText().toString());
+            address = txtDiachi.getText().toString();
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
