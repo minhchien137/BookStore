@@ -29,7 +29,7 @@ public class CardDao extends SQLiteOpenHelper {
 
     private static final String KEY_NUM = "numCart";
 
-    public CardDao(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
+    public CardDao(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
