@@ -215,7 +215,7 @@ public class CRUDFragment extends Fragment {
             }
         });
     }
-    private boolean isValid(String title,String category,String author,String year,String version, String company, String price,String inStock,String desc){
+    private boolean isValid(String title,String author,String category,String year,String version, String company, String price,String desc,String inStock){
         if(title.trim().isEmpty() || author.trim().isEmpty() || year.trim().isEmpty() || version.trim().isEmpty() || company.trim().isEmpty() ||
                 category.trim().isEmpty() || price.trim().isEmpty() || inStock.trim().isEmpty() || desc.trim().isEmpty()){
             Toast.makeText(getContext(), "Các trường không được để trống", Toast.LENGTH_SHORT).show();
