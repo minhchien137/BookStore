@@ -93,6 +93,7 @@ public class CategoryFragment extends Fragment {
         });
 
 
+
         listCate = new ArrayList<>();
         cateListview = (ListView) view.findViewById(R.id.category_lv);
         ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, listCate);
@@ -111,8 +112,35 @@ public class CategoryFragment extends Fragment {
                         .setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // Xóa thể loại khỏi database
-                                deleteCategory(cateName);
+                                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        for (DataSnapshot data : snapshot.getChildren()) {
+                                            String category = data.getValue(String.class);
+                                            if (category.equals(cateName)) {
+                                                data.getRef().removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Toast.makeText(getContext(), "Xóa thể loại thành công!", Toast.LENGTH_SHORT).show();
+                                                            listCate.remove(cateName); // Cập nhật danh sách thể loại
+                                                            ArrayAdapter adapter = (ArrayAdapter) cateListview.getAdapter();
+                                                            adapter.notifyDataSetChanged(); // Cập nhật ListView
+                                                        } else {
+                                                            Toast.makeText(getContext(), "Xóa thể loại thất bại!", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                });
+                                                break; // Thoát khỏi vòng lặp sau khi tìm thấy thể loại cần xóa
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        Toast.makeText(getContext(), "Lỗi khi xóa thể loại", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
                         })
                         .setNegativeButton("Hủy", null)
@@ -144,10 +172,10 @@ public class CategoryFragment extends Fragment {
         });
         return view;
 
+
     }
 
-    private void deleteCategory(String cateName) {
-    }
+
 
     }
 
