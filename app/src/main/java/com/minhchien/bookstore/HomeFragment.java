@@ -1,5 +1,7 @@
 package com.minhchien.bookstore;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,6 +41,8 @@ public class HomeFragment extends Fragment {
     private DatabaseReference myRef;
     //list books by categiry
     List<Category> mListCategorys;
+
+    Button btnHotline;
     List<String> listCates;
     //List<Book> bookList;
     String currentCate;
@@ -46,7 +51,7 @@ public class HomeFragment extends Fragment {
     RecyclerView mainRecyclerView;
     CategoryAdapter categoryAdapter;
     private List<Photo> mListPhoto;
-    private final static int timeDelay = 2000;
+    private final static int timeDelay = 4000;
     private Handler mHandler = new Handler();
     private Runnable mRunable = new Runnable() {
         @Override
@@ -71,6 +76,9 @@ public class HomeFragment extends Fragment {
         viewPager.setAdapter(photoAdapter);
         circleIndicator.setViewPager(viewPager);
         mHandler.postDelayed(mRunable,timeDelay);
+        btnHotline = view.findViewById(R.id.btnHotline);
+
+
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -139,7 +147,7 @@ public class HomeFragment extends Fragment {
     private void getListBooks(){
         for (String category:listCates){
             Query query = database.getReference("Books")
-                    .orderByChild("category").equalTo(category)
+                    .orderByChild("categoryBook").equalTo(category)
                     .limitToFirst(4);
             query.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -148,7 +156,7 @@ public class HomeFragment extends Fragment {
                     if(snapshot.exists()) {
                         CountDownLatch done = new CountDownLatch(2);
                         for (DataSnapshot data : snapshot.getChildren()) {
-                          Book book = data.getValue(Book.class);
+                            Book book = data.getValue(Book.class);
                             //Kiem tra dieu kien
                             if(book.getIsActive() == 1 && book.getInStockBook() > 0){
                                 bookList.add(book);
@@ -178,4 +186,5 @@ public class HomeFragment extends Fragment {
 
         }
     }
+
 }
