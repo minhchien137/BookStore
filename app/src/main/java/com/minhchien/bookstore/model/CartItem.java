@@ -11,6 +11,9 @@ public class CartItem {
         this.numCart = numCart;
     }
 
+    public CartItem() {
+    }
+
     public int getIdCart() {
         return idCart;
     }
