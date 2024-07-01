@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,16 +24,24 @@ import com.google.firebase.database.ValueEventListener;
 import com.minhchien.bookstore.customadapter.CategoryAdapter;
 import com.minhchien.bookstore.model.Book;
 import com.minhchien.bookstore.model.Category;
+import com.minhchien.bookstore.sharepreference.PreferenceManager;
 import com.minhchien.bookstore.ui.FilterCustomDialog;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class SearchFragment extends Fragment {
 
     private FirebaseDatabase database;
     private DatabaseReference myRef;
+
+    private PreferenceManager preferenceManager;
+
+    TextView txtLichSuTimKiem;
+
     List<Category> mListCategorys;
     List<Book> listBooks;
     CategoryAdapter categoryAdapter;
@@ -49,15 +58,19 @@ public class SearchFragment extends Fragment {
         myRef = database.getReference("Books");
         mListCategorys = new ArrayList<Category>();
         listBooks = new ArrayList<>();
+
+        preferenceManager = new PreferenceManager(requireContext(),"search_history");
         //data biding
         searchView = rootView.findViewById(R.id.search);
         mainRecyclerView = (RecyclerView) rootView.findViewById(R.id.main_recycleView);
+        txtLichSuTimKiem = rootView.findViewById(R.id.lichsutimkiem);
         filter = (LinearLayout) rootView.findViewById(R.id.filter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
         mainRecyclerView.setLayoutManager(linearLayoutManager);
         FragmentManager fragmentManager = getParentFragmentManager();
         categoryAdapter = new CategoryAdapter(getContext(),fragmentManager,false);
         mainRecyclerView.setAdapter(categoryAdapter);
+        displaySearchHistory();
         handleFilter();
         handleSearch();
         return rootView;
@@ -105,8 +118,9 @@ public class SearchFragment extends Fragment {
     private void handleSearch(){
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String s) {
-                //queryDB(s);
+            public boolean onQueryTextSubmit(String query) {
+                queryDB(query);
+                saveSearchQuery(query);
                 return false;
             }
 
@@ -116,5 +130,34 @@ public class SearchFragment extends Fragment {
                 return false;
             }
         });
+
+
     }
+
+    private void saveSearchQuery(String query) {
+        Set<String> history = preferenceManager.getStringSet("history");
+        if (history == null) {
+            history = new HashSet<>();
+        }
+        if (!history.contains(query)) {
+            history.add(query);
+            preferenceManager.putStringSet("history", history);
+        }
+    }
+
+    private void displaySearchHistory() {
+        Set<String> history = preferenceManager.getStringSet("history");
+        if (history != null) {
+            StringBuilder historyText = new StringBuilder();
+            for (String query : history) {
+                historyText.append(query).append("   ");
+            }
+            txtLichSuTimKiem.setText(historyText.toString());
+        }
+    }
+
+
+
+
+
 }
