@@ -37,8 +37,6 @@ public class FilterCustomDialog extends DialogFragment {
     private EditText txtEndYear;
     private EditText txtMinPrice;
 
-    private EditText txtTacGia, txtVersion;
-
     private EditText txtMaxPrice;
     private Button btnFilter;
     private Button btnClose;
@@ -76,8 +74,6 @@ public class FilterCustomDialog extends DialogFragment {
             txtMaxPrice = view.findViewById(R.id.dialog_txt_maxPrice);
             btnClose = view.findViewById(R.id.dialog_btn_close);
             btnFilter = view.findViewById(R.id.dialog_btn_filter);
-            txtTacGia = view.findViewById(R.id.dialog_txt_author);
-            txtVersion = view.findViewById(R.id.dialog_txt_version);
 
         }
         btnClose.setOnClickListener(new View.OnClickListener() {
@@ -93,8 +89,6 @@ public class FilterCustomDialog extends DialogFragment {
                 String y2 = txtEndYear.getText().toString();
                 String p1 = txtMinPrice.getText().toString();
                 String p2 = txtMaxPrice.getText().toString();
-                String author = txtTacGia.getText().toString();
-                String version = txtVersion.getText().toString();
                 filterSearch(y1,y2,p1,p2);
             }
         });
@@ -140,11 +134,11 @@ public class FilterCustomDialog extends DialogFragment {
         if(listBooks != null)
             listBooks.clear();
         if(type == 1){
-            query = database.getReference("Books").orderByChild("year").startAt(startYear).endAt(endYear);
+            query = database.getReference("Books").orderByChild("yearBook").startAt(startYear).endAt(endYear);
             getData(query,1);
         }
         else if(type == 2){
-            query = database.getReference("Books").orderByChild("price").startAt(minPrice).endAt(maxPrice);
+            query = database.getReference("Books").orderByChild("priceBook").startAt(minPrice).endAt(maxPrice);
             getData(query,2);
         }
         else{

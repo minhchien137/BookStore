@@ -64,7 +64,7 @@ public class SearchFragment extends Fragment {
     }
     private void queryDB(String search){
         Query query = database.getReference("Books")
-                .orderByChild("title").startAt(search);
+                .orderByChild("titleBook").startAt(search);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
