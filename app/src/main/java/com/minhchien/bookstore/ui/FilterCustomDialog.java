@@ -36,6 +36,9 @@ public class FilterCustomDialog extends DialogFragment {
     private EditText txtStartYear;
     private EditText txtEndYear;
     private EditText txtMinPrice;
+
+    private EditText txtTacGia, txtVersion;
+
     private EditText txtMaxPrice;
     private Button btnFilter;
     private Button btnClose;
@@ -73,6 +76,9 @@ public class FilterCustomDialog extends DialogFragment {
             txtMaxPrice = view.findViewById(R.id.dialog_txt_maxPrice);
             btnClose = view.findViewById(R.id.dialog_btn_close);
             btnFilter = view.findViewById(R.id.dialog_btn_filter);
+            txtTacGia = view.findViewById(R.id.dialog_txt_author);
+            txtVersion = view.findViewById(R.id.dialog_txt_version);
+
         }
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +93,8 @@ public class FilterCustomDialog extends DialogFragment {
                 String y2 = txtEndYear.getText().toString();
                 String p1 = txtMinPrice.getText().toString();
                 String p2 = txtMaxPrice.getText().toString();
+                String author = txtTacGia.getText().toString();
+                String version = txtVersion.getText().toString();
                 filterSearch(y1,y2,p1,p2);
             }
         });
