@@ -2,6 +2,7 @@ package com.minhchien.bookstore;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -57,6 +58,7 @@ public class ShowDetailFragment extends Fragment {
     if (bundle != null){
         Log.d("Bundle Data", bundle.toString());
         book = bundle.getParcelable("book-target");
+
         fillData();
     }
     cardDao = new CardDao(getContext());
@@ -65,6 +67,13 @@ public class ShowDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getParentFragmentManager().popBackStack();
+            }
+        });
+
+        txtDes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowDes();
             }
         });
 
@@ -92,6 +101,16 @@ public class ShowDetailFragment extends Fragment {
                 }
             }
         });
+    }
+    private void ShowDes(){
+       AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+       builder.setTitle(book.getTitleBook());
+       builder.setMessage(book.getDescriptionBook());
+       builder.setPositiveButton("Đóng",
+               ((dialog, which) -> dialog.dismiss()));
+       AlertDialog dialog = builder.create();
+       dialog.show();
+
     }
 
     private void changeToCartFragment(){
@@ -131,7 +150,7 @@ public class ShowDetailFragment extends Fragment {
         txtCompany.setText(book.getCompanyBook());
         txtYear.setText(Integer.toString(book.getYearBook()));
         txtCate.setText(book.getCategoryBook());
-        txtDes.setText(book.getDescriptionBook());
+//        txtDes.setText(book.getDescriptionBook());
         setNum();
     }
 
