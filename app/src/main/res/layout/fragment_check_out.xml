@@ -176,17 +176,17 @@
                         android:enabled="true"
                         android:text="Đặt hàng">
                     </Button>
+
                     <Button
                         android:id="@+id/checkout_btnBack"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/custom_button2"
                         android:layout_marginTop="5dp"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
+                        android:background="@drawable/custom_button2"
                         android:enabled="true"
-                        android:text="Trở về">
-                    </Button>
+                        android:text="Trở về"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"></Button>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
