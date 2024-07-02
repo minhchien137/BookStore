@@ -2,8 +2,12 @@ package com.minhchien.bookstore;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,10 +18,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.minhchien.bookstore.customadapter.BookAdapter;
 import com.minhchien.bookstore.database.CardDao;
 import com.minhchien.bookstore.model.Book;
 import com.minhchien.bookstore.model.CartItem;
 import com.minhchien.bookstore.ui.FormatCurrency;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShowDetailFragment extends Fragment {
 
@@ -26,6 +40,12 @@ public class ShowDetailFragment extends Fragment {
     ImageView img;
 
     Button btnGiam, btnTang, btnAddToCart, btnBack;
+
+    RecyclerView sanphamtuongtu;
+
+    BookAdapter similarProductsAdaper;
+
+    List<Book> similarProductsList;
 
     Book book;
 
@@ -53,11 +73,18 @@ public class ShowDetailFragment extends Fragment {
     btnAddToCart = (Button) view.findViewById(R.id.detail_btnAddToCart);
     btnBack = (Button) view.findViewById(R.id.detail_btnBack);
     txtNum = (TextView) view.findViewById(R.id.txtsoluong);
+    sanphamtuongtu = (RecyclerView) view.findViewById(R.id.similar_products_recycler_view);
+    similarProductsList = new ArrayList<>();
+    similarProductsAdaper = new BookAdapter(getContext(),getParentFragmentManager());
+    sanphamtuongtu.setLayoutManager(new GridLayoutManager(getContext(), 3));
+    sanphamtuongtu.setAdapter(similarProductsAdaper);
     numofBook = 1;
     Bundle bundle = getArguments();
     if (bundle != null){
-        Log.d("Bundle Data", bundle.toString());
+
+        Log.d("Bundle Data", bundle.toString()); // Kiem tra log xem co get du lieu dc hay khong ?
         book = bundle.getParcelable("book-target");
+        fetchSimilarProducts(book.getCategoryBook()); // Lấy sản phẩm tương tự
 
         fillData();
     }
@@ -85,6 +112,31 @@ public class ShowDetailFragment extends Fragment {
         //Them vao gio hang
         return view;
 
+    }
+
+    //  Phương thức này truy vấn cơ sở dữ liệu để lấy danh sách các sản phẩm có cùng thể loại với sản phẩm hiện tại.
+
+    private void fetchSimilarProducts(String category){
+        DatabaseReference bref = FirebaseDatabase.getInstance().getReference("Books");
+        Query query = bref.orderByChild("categoryBook").equalTo(category);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                similarProductsList.clear();
+                for (DataSnapshot data: snapshot.getChildren()){
+                    Book book1 = data.getValue(Book.class);
+                    if (book1 != null && !book1.getIdBook().equals(ShowDetailFragment.this.book.getIdBook())){
+                        similarProductsList.add(book1);
+                    }
+                }
+                similarProductsAdaper.setData(similarProductsList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void handleAddToCart(){
