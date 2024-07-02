@@ -24,12 +24,25 @@
         app:queryBackground="@null"
         app:searchIcon="@drawable/ic_search"
         app:submitBackground="@null"></SearchView>
+    <TextView
+        android:id="@+id/lichsutimkiem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:textColor="@color/purple"
+        android:text="lich su tim kiem"
+        android:paddingLeft="8dp"
+        android:layout_below="@id/search"
+        >
+    </TextView>
+
     <LinearLayout
         android:id="@+id/filter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/search"
         android:gravity="center_vertical"
+        android:paddingTop="40dp"
         android:layout_marginBottom="5dp">
         <TextView
             android:layout_width="wrap_content"

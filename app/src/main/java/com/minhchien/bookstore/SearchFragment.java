@@ -141,6 +141,7 @@ public class SearchFragment extends Fragment {
         }
         if (!history.contains(query)) {
             history.add(query);
+            preferenceManager.clear();
             preferenceManager.putStringSet("history", history);
         }
     }
