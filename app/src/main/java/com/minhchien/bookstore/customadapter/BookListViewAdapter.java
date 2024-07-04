@@ -99,7 +99,7 @@ public class BookListViewAdapter extends BaseAdapter {
         viewHolder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                update(book.getIdBook());
+                update(book);
             }
         });
 
@@ -131,10 +131,25 @@ public class BookListViewAdapter extends BaseAdapter {
         Button btnActive;
     }
 
-    private void update(String id) {
+    private void update(Book book) {
+//        UpdateFragment updateFragment = new UpdateFragment();
+//        Bundle bundle = new Bundle();
+//        bundle.putString("BOOK_ID", id);
+//        updateFragment.setArguments(bundle);
+//        FragmentTransaction ft = this.fragmentManager.beginTransaction();
+//        ft.replace(R.id.admin_list_book_container, updateFragment).addToBackStack(null).commit();
+
         UpdateFragment updateFragment = new UpdateFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("BOOK_ID", id);
+        bundle.putString("BOOK_ID", book.getIdBook());
+        bundle.putString("BOOK_TITLE", book.getTitleBook()); // Thêm tên sách
+        bundle.putString("BOOK_AUTHOR", book.getAuthor()); // Thêm tác giả
+        bundle.putString("BOOK_YEAR" , String.valueOf(book.getYearBook())); // Them nam
+        bundle.putString("BOOK_VERSION", book.getVersionBook());
+        bundle.putString("BOOK_COMPANY", book.getCompanyBook());
+        bundle.putString("BOOK_DES", book.getDescriptionBook());
+        bundle.putString("BOOK_SOLUONG", String.valueOf(book.getInStockBook()));
+        bundle.putString("BOOK_PRICE", String.valueOf(book.getPriceBook()));
         updateFragment.setArguments(bundle);
         FragmentTransaction ft = this.fragmentManager.beginTransaction();
         ft.replace(R.id.admin_list_book_container, updateFragment).addToBackStack(null).commit();

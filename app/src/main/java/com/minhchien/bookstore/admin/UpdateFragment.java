@@ -96,6 +96,7 @@ public class UpdateFragment extends Fragment {
         txtCompany = (EditText) view.findViewById(R.id.crud_congtyphathanh);
         txtNum = (EditText) view.findViewById(R.id.crud_in_stock);
         txtDes = (EditText) view.findViewById(R.id.crud_des);
+        txtPrice = (EditText) view.findViewById(R.id.crud_price);
         swActive = (Switch) view.findViewById(R.id.crud_sw_active);
         img = (ImageView) view.findViewById(R.id.crud_img);
         snCategory = (Spinner) view.findViewById(R.id.crud_categorys);
@@ -127,6 +128,23 @@ public class UpdateFragment extends Fragment {
         Bundle bundle = getArguments();
         if(bundle != null){
             String bookId = bundle.getString("BOOK_ID");
+        // them
+            String bookTitle = bundle.getString("BOOK_TITLE");
+            String bookAuthor = bundle.getString("BOOK_AUTHOR");
+            String bookYear = bundle.getString("BOOK_YEAR");
+            String bookVersion = bundle.getString("BOOK_VERSION");
+            String bookCompany = bundle.getString("BOOK_COMPANY");
+            String bookinStock = bundle.getString("BOOK_SOLUONG");
+            String bookDes = bundle.getString("BOOK_DES");
+            String bookPrice = bundle.getString("BOOK_PRICE");
+            txtTitle.setText(bookTitle);
+            txtAuthor.setText(bookAuthor);
+            txtYear.setText(bookYear);
+            txtVersion.setText(bookVersion);
+            txtCompany.setText(bookCompany);
+            txtNum.setText(bookinStock);
+            txtDes.setText(bookDes);
+            txtPrice.setText(bookPrice);
             book.setIdBook(bookId);
             getBookInfo();
         }
