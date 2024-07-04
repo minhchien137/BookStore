@@ -27,15 +27,20 @@ import com.minhchien.bookstore.model.Book;
 import com.minhchien.bookstore.ui.FormatCurrency;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BookListViewAdapter extends BaseAdapter {
     private Context context;
     LayoutInflater inflater = null;
+
     ArrayList<Book> list;
+
     {
         list = new ArrayList<>();
     }
+
     FragmentManager fragmentManager;
+
     public BookListViewAdapter(Context context, ArrayList<Book> list, FragmentManager fragmentManager) {
         this.context = context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -62,7 +67,7 @@ public class BookListViewAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         Book book = list.get(i);
         ViewHolder viewHolder;
-        if(view == null){
+        if (view == null) {
             view = inflater.inflate(R.layout.book_listview_layout, viewGroup, false);
             viewHolder = new ViewHolder();
             viewHolder.title = (TextView) view.findViewById(R.id.lv_txt_title);
@@ -73,18 +78,17 @@ public class BookListViewAdapter extends BaseAdapter {
             viewHolder.btnEdit = (Button) view.findViewById(R.id.lv_btn_edit);
             viewHolder.btnActive = (Button) view.findViewById(R.id.lv_btn_active);
             view.setTag(viewHolder);
-        }else{
+        } else {
             viewHolder = (ViewHolder) view.getTag();
         }
         Glide.with(context).load(book.getImgURLBook()).into(viewHolder.img);
         viewHolder.title.setText(book.getTitleBook());
         viewHolder.author.setText(book.getAuthor());
-        if(book.getIsActive() == 1){
-            viewHolder.active.setText("Hoạt động");
+        if (book.getIsActive() == 1) {
+            viewHolder.active.setText("Hiện");
             viewHolder.active.setTextColor(Color.parseColor("#35a813"));
-        }
-        else {
-            viewHolder.active.setText("Đã ẩn");
+        } else {
+            viewHolder.active.setText("Ẩn");
             viewHolder.active.setTextColor(Color.parseColor("#d71a00"));
         }
         viewHolder.price.setText(FormatCurrency.formatVND(book.getPriceBook()));
@@ -107,7 +111,7 @@ public class BookListViewAdapter extends BaseAdapter {
                 myRef.child(book.getIdBook()).child("isActive").setValue(book.getIsActive()).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isComplete()){
+                        if (task.isComplete()) {
                             Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -116,7 +120,8 @@ public class BookListViewAdapter extends BaseAdapter {
         });
         return view;
     }
-    private class ViewHolder{
+
+    private class ViewHolder {
         TextView title;
         TextView author;
         TextView active;
@@ -125,13 +130,15 @@ public class BookListViewAdapter extends BaseAdapter {
         Button btnEdit;
         Button btnActive;
     }
-    private void update(String id){
+
+    private void update(String id) {
         UpdateFragment updateFragment = new UpdateFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("BOOK_ID",id);
+        bundle.putString("BOOK_ID", id);
         updateFragment.setArguments(bundle);
         FragmentTransaction ft = this.fragmentManager.beginTransaction();
-        ft.replace(R.id.admin_list_book_container,updateFragment).addToBackStack(null).commit();
+        ft.replace(R.id.admin_list_book_container, updateFragment).addToBackStack(null).commit();
     }
+
 
 }

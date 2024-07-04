@@ -5,16 +5,34 @@
     android:layout_height="match_parent"
     tools:context=".admin.AdminListbook">
 
-    <!-- TODO: Update blank fragment layout -->
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sp_listbook_categorys"
+        android:layout_marginBottom="50dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:background="@drawable/round_shape"
+        android:spinnerMode="dialog"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        />
+
     <FrameLayout
         android:id="@+id/admin_list_book_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingTop="40dp"
+        >
+
+
         <ListView
-            android:layout_margin="20dp"
             android:id="@+id/admin_lv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></ListView>
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp">
+
+        </ListView>
     </FrameLayout>
 
 </FrameLayout>

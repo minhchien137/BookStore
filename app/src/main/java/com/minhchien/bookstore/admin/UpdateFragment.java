@@ -98,6 +98,7 @@ public class UpdateFragment extends Fragment {
         txtDes = (EditText) view.findViewById(R.id.crud_des);
         swActive = (Switch) view.findViewById(R.id.crud_sw_active);
         img = (ImageView) view.findViewById(R.id.crud_img);
+        snCategory = (Spinner) view.findViewById(R.id.crud_categorys);
 
         // button add image
         btnAddImg = (Button) view.findViewById(R.id.crud_btn_img);
