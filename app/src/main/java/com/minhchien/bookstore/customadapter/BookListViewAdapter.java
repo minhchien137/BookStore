@@ -132,12 +132,6 @@ public class BookListViewAdapter extends BaseAdapter {
     }
 
     private void update(Book book) {
-//        UpdateFragment updateFragment = new UpdateFragment();
-//        Bundle bundle = new Bundle();
-//        bundle.putString("BOOK_ID", id);
-//        updateFragment.setArguments(bundle);
-//        FragmentTransaction ft = this.fragmentManager.beginTransaction();
-//        ft.replace(R.id.admin_list_book_container, updateFragment).addToBackStack(null).commit();
 
         UpdateFragment updateFragment = new UpdateFragment();
         Bundle bundle = new Bundle();
@@ -150,6 +144,8 @@ public class BookListViewAdapter extends BaseAdapter {
         bundle.putString("BOOK_DES", book.getDescriptionBook());
         bundle.putString("BOOK_SOLUONG", String.valueOf(book.getInStockBook()));
         bundle.putString("BOOK_PRICE", String.valueOf(book.getPriceBook()));
+        bundle.putString("BOOK_IMAGE_URL", book.getImgURLBook());
+        bundle.putString("BOOK_CATEGORY", book.getCategoryBook());
         updateFragment.setArguments(bundle);
         FragmentTransaction ft = this.fragmentManager.beginTransaction();
         ft.replace(R.id.admin_list_book_container, updateFragment).addToBackStack(null).commit();

@@ -124,6 +124,7 @@ public class UpdateFragment extends Fragment {
         snCategory.setAdapter(categoryAdapter);
         getCategory();
 
+
         // get arguments
         Bundle bundle = getArguments();
         if(bundle != null){
@@ -137,6 +138,20 @@ public class UpdateFragment extends Fragment {
             String bookinStock = bundle.getString("BOOK_SOLUONG");
             String bookDes = bundle.getString("BOOK_DES");
             String bookPrice = bundle.getString("BOOK_PRICE");
+            String bookImgUrl = bundle.getString("BOOK_IMAGE_URL");
+            //get du lieu Category tu BookListViewAdapter
+            String bookCategory = bundle.getString("BOOK_CATEGORY");
+            if (bookCategory != null) {
+                int position = categoryAdapter.getPosition(bookCategory);
+                if (position >= 0) {
+                    snCategory.setSelection(position);
+                }
+            }
+
+
+            // tai hinh anh bang Glide
+            Glide.with(getContext()).load(bookImgUrl).into(img);
+
             txtTitle.setText(bookTitle);
             txtAuthor.setText(bookAuthor);
             txtYear.setText(bookYear);
@@ -148,6 +163,7 @@ public class UpdateFragment extends Fragment {
             book.setIdBook(bookId);
             getBookInfo();
         }
+
 
         // Dialog
         setProgressDialog();
@@ -175,9 +191,11 @@ public class UpdateFragment extends Fragment {
                         isActive = 0;
                 }
                 if (isValid(title,author,category,year,version,company,inStock,price,des)){
+
                     int yearVal = Integer.parseInt(year);
                     int priceVal = Integer.parseInt(price);
                     int inStockVal = Integer.parseInt(inStock);
+
                     //imgUri != null -> upload image
                     //reset book -> upload img -> update
                     if (imgUri != null){
@@ -194,6 +212,7 @@ public class UpdateFragment extends Fragment {
                                     public void onSuccess(Uri uri) {
                                         String imgURL = uri.toString();
                                         book.setImgURLBook(imgURL);
+                                        
                                         // Add to DB
                                         if (book.getImgURLBook() != null){
                                             if (dao.updateBook(book.getIdBook(),title,author,category,imgURL,company,version,yearVal,priceVal,inStockVal,des,finalIsActive)){
@@ -217,7 +236,8 @@ public class UpdateFragment extends Fragment {
                             }
                         });
                     }else {
-                        if (dao.updateBook(book.getIdBook(),title,author,category,book.getImgURLBook(),company,version,yearVal,priceVal,inStockVal,des, isActive)){
+                        String img = book.getImgURLBook();
+                        if (dao.updateBook(book.getIdBook(),title,author,category,img,company,version,yearVal,priceVal,inStockVal,des, isActive)){
                             getBookInfo();
                         }
                     }
@@ -225,6 +245,8 @@ public class UpdateFragment extends Fragment {
             }
         });
     }
+    
+    
     private void onGetImageClick(){
         btnAddImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -258,9 +280,12 @@ private void fillData(){
     txtTitle.setText(book.getTitleBook());
     txtAuthor.setText(book.getAuthor());
     ArrayAdapter adapter = (ArrayAdapter)snCategory.getAdapter();
-    if (adapter != null){
+    if (adapter != null && category != null ){
         int selectIndex = adapter.getPosition(book.getCategoryBook());
-        snCategory.setSelection(selectIndex);
+        if (selectIndex >= 0){
+            snCategory.setSelection(selectIndex);
+        }
+
     }
     txtCompany.setText(book.getCompanyBook());
     txtVersion.setText(book.getVersionBook());
@@ -283,6 +308,8 @@ private void fillData(){
                     category.add(cate);
                 }
                 categoryAdapter.notifyDataSetChanged();
+                // Đặt lựa chọn cho Spinner sau khi danh mục đã được tải
+
             }
 
             @Override
