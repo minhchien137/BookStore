@@ -196,6 +196,7 @@ public class UpdateFragment extends Fragment {
                     int priceVal = Integer.parseInt(price);
                     int inStockVal = Integer.parseInt(inStock);
 
+
                     //imgUri != null -> upload image
                     //reset book -> upload img -> update
                     if (imgUri != null){

@@ -60,8 +60,9 @@ public class AdminListbook extends Fragment {
         spinnerCategory = (Spinner) view.findViewById(R.id.sp_listbook_categorys);
         categorys = new ArrayList<>();
         categoryAdapter = new ArrayAdapter(getContext(), R.layout.style_spinner, categorys);
-        getCategory();
         spinnerCategory.setAdapter(categoryAdapter);
+        getCategory();
+
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -126,7 +127,7 @@ public class AdminListbook extends Fragment {
     private void UpdateTheoTheLoai(String category){
         listBook.clear();
 
-        if (category.equals("Tất cả")) {
+        if (category.equals("Tất Cả")) {
             getData(); // Call getData to retrieve all books again
             return;
         }
@@ -142,6 +143,7 @@ public class AdminListbook extends Fragment {
                     }
                 }
                 adapter.notifyDataSetChanged();
+//
             }
 
             @Override

@@ -94,7 +94,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Địa chỉ : "
+                        android:text="Địa chỉ nhận hàng  : "
                         android:textColor="@color/text_second"
                         android:textSize="20sp"
                         android:layout_marginTop="10dp"
@@ -109,6 +109,39 @@
                         android:enabled="false"
                         android:textColor="@color/text_second"
                         android:textSize="16sp"></EditText>
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Phương thức thanh toán : "
+                        android:textColor="@color/text_second"
+                        android:textSize="20sp"
+                        android:layout_marginTop="10dp"
+                        android:textStyle="bold" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroupPaymentMethod"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+                        <RadioButton
+                            android:id="@+id/radioButtonCOD"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:textColor="@color/primary_color"
+                            android:text="1. Thanh toán khi nhận hàng" />
+                        <RadioButton
+                            android:id="@+id/radioButtonMomo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/primary_color"
+                            android:text="2. Qua ví điện tử Momo" />
+                    </RadioGroup>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -124,7 +157,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Phí giao hàng : "
+                                android:text="Phí vận chuyển : "
                                 android:textColor="@color/text_second"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
