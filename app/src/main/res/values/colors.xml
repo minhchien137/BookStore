@@ -19,4 +19,8 @@
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
     <color name="purple">#8692f7</color>
+    <color name="xacnhan">#9C27B0</color>
+    <color name="danggiao">#4CAF50</color>
+    <color name="hoanthanh">#CDDC39</color>
+    <color name="huy">#F44336</color>
 </resources>

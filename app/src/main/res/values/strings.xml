@@ -116,4 +116,19 @@
     <string name="admin_menu_header">Quản trị</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string-array name="order_options">
+        <item>Chỉnh sửa đơn hàng</item>
+        <item>Hủy đơn hàng</item>
+    </string-array>
+
+        <string-array name="trang_thai">
+            <item>All</item>
+            <item>WaitConfirm</item>
+            <item>In Progess</item>
+            <item>Completed</item>
+            <item>Cancelled</item>
+        </string-array>
+
+
 </resources>

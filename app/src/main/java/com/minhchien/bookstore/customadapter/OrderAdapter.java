@@ -6,12 +6,17 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.minhchien.bookstore.OrderDetailFragment;
 import com.minhchien.bookstore.R;
 import com.minhchien.bookstore.model.Order;
@@ -27,6 +32,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.HolderOrder>
 
     private ArrayList<Order> orderList;
 
+    private Spinner spinner;
+
     private FragmentManager fragmentManager;
 
     int isAdmin;
@@ -38,6 +45,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.HolderOrder>
         PreferenceManager preferenceManager = new PreferenceManager(context, Constants.LOGIN_KEY_PREFERENCE_NAME);
         this.isAdmin = preferenceManager.getInt(Constants.LOGIN_IS_ADMIN);
     }
+
 
     @NonNull
     @Override
@@ -68,11 +76,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.HolderOrder>
         }
 
         if (orderStatus.equals("In progress")){
-            holder.txtStatus.setTextColor(context.getResources().getColor(R.color.primary_color));
+            holder.txtStatus.setTextColor(context.getResources().getColor(R.color.danggiao));
         } else if (orderStatus.equals("Completed")){
-            holder.txtStatus.setTextColor(context.getResources().getColor(R.color.second_color));
+            holder.txtStatus.setTextColor(context.getResources().getColor(R.color.hoanthanh));
+        } else if (orderStatus.equals("WaitConfirm")) {
+            holder.txtStatus.setTextColor(context.getResources().getColor(R.color.xacnhan));
         } else if (orderStatus.equals("Cancelled")){
-            holder.txtStatus.setTextColor(context.getResources().getColor(R.color.text_second));
+            holder.txtStatus.setTextColor(context.getResources().getColor(R.color.huy));
         }
 
         Calendar calendar = Calendar.getInstance();
@@ -86,7 +96,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.HolderOrder>
                 handleOrderItemClick(orderId,orderBy);
             }
         });
+
+
     }
+
+
+
+
 
     void handleOrderItemClick(String orderId,String orderBy){
         PreferenceManager preferenceManager = new PreferenceManager(context, Constants.LOGIN_KEY_PREFERENCE_NAME);
@@ -110,8 +126,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.HolderOrder>
         return orderList.size();
     }
 
+    public void updateOrderList(ArrayList<Order> newOrderList) {
+        this.orderList = newOrderList;
+        notifyDataSetChanged();
+    }
+
     class HolderOrder extends RecyclerView.ViewHolder {
         private TextView txtOrder, txtDate, txtTotal, txtStatus, txtOderBy;
+
+        private Spinner spinner;
 
         public HolderOrder(@NonNull View itemView) {
             super(itemView);
@@ -124,5 +147,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.HolderOrder>
                 txtOderBy = itemView.findViewById(R.id.txtOrderBy);
             }
         }
+
+
     }
 }
