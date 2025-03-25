@@ -27,6 +27,7 @@ public class InforFragment extends Fragment {
     EditText txtPhone;
     EditText txtAddress;
     EditText txtName;
+    EditText txtGmail;
     Button btnBack;
     Button btnUpdateInfor;
     Fragment updateInforFragment = new UpdateInforFragment();
@@ -46,6 +47,7 @@ public class InforFragment extends Fragment {
         btnUpdateInfor = (Button) view.findViewById(R.id.infor_btnUpdate);
         txtName = (EditText) view.findViewById(R.id.infor_txtname);
         txtPhone = (EditText) view.findViewById(R.id.infor_txtphone);
+        txtGmail = (EditText) view.findViewById(R.id.infor_txtgmail);
         txtAddress = (EditText) view.findViewById(R.id.infor_txtaddress);
         handleUpdateInfor();
         PreferenceManager preferenceManager = new PreferenceManager(getContext(), Constants.LOGIN_KEY_PREFERENCE_NAME);
@@ -65,10 +67,12 @@ public class InforFragment extends Fragment {
                 if (profile != null) {
                     String name = profile.getFullName();
                     String address = profile.getAddress();
+                    String gmail = profile.getGmail();
 
                     txtName.setText(name);
                     txtAddress.setText(address);
                     txtPhone.setText(phone);
+                    txtGmail.setText(gmail);
                 }
             }
 

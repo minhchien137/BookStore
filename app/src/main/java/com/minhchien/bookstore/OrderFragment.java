@@ -47,7 +47,7 @@ public class OrderFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_order, container, false);
         orderRv = view.findViewById(R.id.order_recyclerview);
-        orderStatusSpinner = view.findViewById(R.id.orderStatusSpinner);
+     //   orderStatusSpinner = view.findViewById(R.id.orderStatusSpinner);
         preferenceManager = new PreferenceManager(getContext(), Constants.LOGIN_KEY_PREFERENCE_NAME);
         fragmentManager = getParentFragmentManager();
 

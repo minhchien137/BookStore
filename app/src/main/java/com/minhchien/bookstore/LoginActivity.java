@@ -3,6 +3,7 @@ package com.minhchien.bookstore;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -31,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     EditText txtPhone,txtPass;
-    TextView tvSignupLogin;
+    TextView tvSignupLogin,tvForgotPassword;
 
     ImageView togglePWinvibility;
     Button btnLogin;
@@ -48,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         txtPass = (EditText) findViewById(R.id.matkhauLogin);
         btnLogin = (Button) findViewById(R.id.loginButton);
         tvSignupLogin = (TextView) findViewById(R.id.signupText);
+        tvForgotPassword = (TextView) findViewById(R.id.forgotPasswordText);
         togglePWinvibility = (ImageView) findViewById(R.id.togglePasswordVisibility);
 
 
@@ -123,6 +125,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // Forgot Password
+        tvForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { changeToForgotActivity(); }
+        });
+
 
 
 
@@ -142,6 +150,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void changeToRegisterActivity(){
         Intent intent = new Intent(getApplicationContext(),SignupActivity.class);
+        startActivity(intent);
+    }
+
+    private void changeToForgotActivity(){
+        Intent intent = new Intent(getApplicationContext(),ForgotPassword.class);
         startActivity(intent);
     }
 

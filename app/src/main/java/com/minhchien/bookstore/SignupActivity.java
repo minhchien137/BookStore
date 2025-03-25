@@ -28,7 +28,7 @@ import org.w3c.dom.Text;
 
 public class SignupActivity extends AppCompatActivity {
 
-    EditText txtFullName,txtPhone,txtPass;
+    EditText txtFullName,txtPhone,txtPass, txtGmail;
 
     Button btnRegister;
 
@@ -50,6 +50,7 @@ public class SignupActivity extends AppCompatActivity {
         txtFullName = (EditText) findViewById(R.id.HovatenSignup);
         txtPhone = (EditText) findViewById(R.id.sodienthoaiSignup);
         txtPass = (EditText) findViewById(R.id.matkhauSignup);
+        txtGmail = (EditText) findViewById(R.id.gmailSignup);
         btnRegister = (Button)findViewById(R.id.signupButton);
         tvSignupLogin = (TextView) findViewById(R.id.signupText);
         togglePWSignUp = (ImageView) findViewById(R.id.togglePasswordVisibilitySU);
@@ -88,16 +89,16 @@ public class SignupActivity extends AppCompatActivity {
         String phone = txtPhone.getText().toString();
         String fullName = txtFullName.getText().toString();
         String pass = txtPass.getText().toString();
-        if(isValid(phone,fullName,pass)){
-            User user = new User(fullName,phone,pass,"None");
+        String gmail = txtGmail.getText().toString();
+        if(isValid(phone,fullName,gmail,pass)){
+            User user = new User(fullName,phone,pass,gmail,"None");
             myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     //Check phone number is exist
-                    if(snapshot.hasChild(phone)){
+                    if(snapshot.hasChild(phone)) {
                         Toast.makeText(SignupActivity.this, "Số điện thoại này đã tồn tại!", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
+                    }else{
                         myRef.child(user.getPhoneNumber()).setValue(user);
                         Toast.makeText(SignupActivity.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
                         //Login
@@ -116,10 +117,15 @@ public class SignupActivity extends AppCompatActivity {
 
 
     // check validate
-    private Boolean isValid(String phone, String fullName, String password){
+    private Boolean isValid(String phone, String fullName, String gmail, String password){
         String validNumber = "^[+]?[0-9]{8,15}$";
+        String validEmail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         if(!phone.matches(validNumber)){
             Toast.makeText(SignupActivity.this,"Số điện thoại này không hợp lệ!",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (!gmail.matches(validEmail)){
+            Toast.makeText(SignupActivity.this,"Gmail này không hợp lệ!",Toast.LENGTH_SHORT).show();
             return false;
         }
         if(fullName.trim().isEmpty() || password.isEmpty()){

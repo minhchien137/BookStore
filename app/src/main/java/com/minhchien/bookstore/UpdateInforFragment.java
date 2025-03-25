@@ -25,7 +25,7 @@ import com.minhchien.bookstore.sharepreference.PreferenceManager;
 
 public class UpdateInforFragment extends Fragment {
 
-    EditText txtName, txtDiachi;
+    EditText txtName, txtDiachi, txtGmail;
 
     Button btnSave, btnBack;
 
@@ -33,7 +33,7 @@ public class UpdateInforFragment extends Fragment {
 
     DatabaseReference reference;
 
-    private String phone,name, address;
+    private String phone,name, gmail, address;
 
     public UpdateInforFragment() {
         // Required empty public constructor
@@ -47,6 +47,7 @@ public class UpdateInforFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_update_infor, container, false);
         txtName = view.findViewById(R.id.updateinfor_txtname);
         txtDiachi = view.findViewById(R.id.updateinfor_txtaddress);
+        txtGmail = view.findViewById(R.id.updateinfor_txtgmail);
         btnSave = view.findViewById(R.id.updateinfor_btnUpdate);
         btnBack = view.findViewById(R.id.updateinfor_btnBack);
 
@@ -84,8 +85,10 @@ public class UpdateInforFragment extends Fragment {
                 if (profile != null){
                     name = profile.getFullName();
                     address = profile.getAddress();
+                    gmail = profile.getGmail();
 
                     txtName.setText(name);
+                    txtGmail.setText(gmail);
                     txtDiachi.setText(address);
                 }
             }
@@ -98,7 +101,7 @@ public class UpdateInforFragment extends Fragment {
     }
 
     public void UpdateInfor(){
-        if (isNameChanged() || isAddressChanged()){
+        if (isNameChanged() || isAddressChanged() || isGmailChanged()){
             Toast.makeText(getActivity(), "Cập nhật thông tin thành công!", Toast.LENGTH_SHORT).show();
         }
         else {
@@ -132,6 +135,19 @@ public class UpdateInforFragment extends Fragment {
         if (!address.equals(txtDiachi.getText().toString())){
             reference.child(address).child("address").setValue(txtDiachi.getText().toString());
             address = txtDiachi.getText().toString();
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    private boolean isGmailChanged(){
+        PreferenceManager preferenceManager = new PreferenceManager(getContext(), Constants.LOGIN_KEY_PREFERENCE_NAME);
+        gmail = preferenceManager.getString(Constants.LOGIN_PHONE);
+        if (!gmail.equals(txtGmail.getText().toString())){
+            reference.child(gmail).child("gmail").setValue(txtDiachi.getText().toString());
+            gmail = txtGmail.getText().toString();
             return true;
         }
         else {

@@ -7,16 +7,18 @@ public class User implements Parcelable {
     private String fullName;
     private String phoneNumber;
     private String password;
+    private String gmail;
     private String address;
     private int isAdmin;
 
     public User() {
     }
 
-    public User(String fullName, String phone, String password, String address) {
+    public User(String fullName, String phone, String password, String gmail ,String address) {
         this.fullName = fullName;
         this.phoneNumber = phone;
         this.password = password;
+        this.gmail = gmail;
         this.address = address;
         this.isAdmin = 0;
     }
@@ -25,6 +27,7 @@ public class User implements Parcelable {
         fullName = in.readString();
         phoneNumber = in.readString();
         password = in.readString();
+        gmail = in.readString();
         address = in.readString();
         isAdmin = in.readInt();
     }
@@ -73,6 +76,14 @@ public class User implements Parcelable {
         this.password = password;
     }
 
+    public String getGmail() {
+        return gmail;
+    }
+
+    public void setGmail(String gmail) {
+        this.gmail = gmail;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -91,6 +102,7 @@ public class User implements Parcelable {
         parcel.writeString(fullName);
         parcel.writeString(phoneNumber);
         parcel.writeString(password);
+        parcel.writeString(gmail);
         parcel.writeString(address);
         parcel.writeInt(isAdmin);
     }
