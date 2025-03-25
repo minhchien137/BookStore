@@ -84,6 +84,28 @@
                         android:hint=""
                         android:textColor="@color/text_second"
                         android:textSize="16sp"></EditText>
+
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Gmail : "
+                        android:textColor="@color/text_second"
+                        android:textSize="20sp"
+                        android:layout_marginTop="10dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/updateinfor_txtgmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:hint=""
+                        android:textColor="@color/text_second"
+                        android:textSize="16sp"></EditText>
+
                     <Button
                         android:id="@+id/updateinfor_btnUpdate"
                         android:layout_width="match_parent"

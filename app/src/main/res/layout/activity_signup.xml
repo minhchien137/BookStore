@@ -66,6 +66,19 @@
                 android:textColorHighlight="@color/cardview_dark_background"
                 android:layout_marginTop="20dp"/>
 
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/gmailSignup"
+                android:background="@drawable/custom_edittext"
+                android:drawableLeft="@drawable/ic_gmail"
+                android:drawablePadding="8dp"
+                android:hint="Gmail"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/cardview_dark_background"
+                android:layout_marginTop="20dp"/>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="90dp">

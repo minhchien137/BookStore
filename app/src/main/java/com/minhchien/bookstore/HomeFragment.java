@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment {
         viewPager.setAdapter(photoAdapter);
         circleIndicator.setViewPager(viewPager);
         mHandler.postDelayed(mRunable,timeDelay);
-        btnHotline = view.findViewById(R.id.btnHotline);
+       // btnHotline = view.findViewById(R.id.btnHotline);
 
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

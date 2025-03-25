@@ -74,6 +74,8 @@
                     app:layout_constraintBottom_toBottomOf="@+id/btngiamsoluong"
                     app:layout_constraintStart_toEndOf="@+id/btngiamsoluong"
                     app:layout_constraintTop_toTopOf="@+id/btngiamsoluong" />
+
+
                 <Button
                     android:id="@+id/btntangsoloung"
                     android:layout_width="35dp"

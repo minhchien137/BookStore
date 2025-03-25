@@ -104,6 +104,18 @@
                 android:text="Đơn hàng của tôi" />
 
             <Button
+                android:id="@+id/account_btnThongke"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primary_color"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:enabled="true"
+                android:text="Thống kê doanh thu" />
+
+
+            <Button
                 android:id="@+id/account_btnChangePass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
