@@ -145,9 +145,22 @@ public class ShowDetailFragment extends Fragment {
             public void onClick(View v) {
                 String bookId = book.getIdBook();
                 if (bookId != null){
+
+                    String numText = txtNum.getText().toString().trim();
+                    int num = 1;
+
+                    if (!numText.isEmpty()){
+                        try {
+                            num = Integer.parseInt(numText);
+                            if (num < 1) num = 1; // Nếu num < 1 thì gán num bằng 1
+                        } catch (NumberFormatException e){
+                            num = 1; // Neu nhap sai mac dinh se la 1
+                        }
+                    }
+
                     CartItem cartItem = new CartItem();
                     cartItem.setBookId(bookId);
-                    cartItem.setNumCart(numofBook);
+                    cartItem.setNumCart(num);
                     cardDao.addToCart(cartItem);
                     changeToCartFragment();
                 }

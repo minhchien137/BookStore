@@ -62,18 +62,24 @@
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="@+id/imgsanpham"
                     app:layout_constraintStart_toEndOf="@+id/imgsanpham" />
-                <TextView
+
+
+                <EditText
                     android:id="@+id/txtsoluong"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp"
                     android:layout_marginStart="8dp"
+                    android:inputType="number"
+                    android:gravity="center"
                     android:text="1"
                     android:textColor="@color/text_second"
                     android:textSize="18sp"
                     android:textStyle="bold"
+                    android:background="@drawable/custom_edittext"
                     app:layout_constraintBottom_toBottomOf="@+id/btngiamsoluong"
                     app:layout_constraintStart_toEndOf="@+id/btngiamsoluong"
-                    app:layout_constraintTop_toTopOf="@+id/btngiamsoluong" />
+                    app:layout_constraintTop_toTopOf="@+id/btngiamsoluong"
+                    />
 
 
                 <Button
@@ -246,8 +252,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Xem thêm chi tiết về sách"
-                    android:layout_marginStart="232dp"
+                    android:text="More about"
+                    android:layout_marginStart="250dp"
                     android:layout_marginTop="10dp"
                     android:textColor="@color/purple"
                     android:textStyle="italic"
