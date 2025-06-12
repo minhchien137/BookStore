@@ -1,5 +1,15 @@
 ---------Các chức năng chính của BookStore---------
 
+test người dùng : 
+tài khoản : 012345678
+mật khẩu : abc@123
+
+test quản trị viên :
+tài khoản : 087654321
+mật khẩu : abc@123
+
+
+
 * Chức năng của Người dùng
 -• Đăng ký tài khoản
 -• Đăng nhập
